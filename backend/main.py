@@ -95,6 +95,17 @@ class TableResponse(BaseModel):
 # REST endpoints
 # ---------------------------------------------------------------------------
 
+@app.get("/")
+async def root():
+    return {
+        "name": "Poker Club API",
+        "version": "1.0.0",
+        "status": "running",
+        "docs": "/docs",
+        "health": "/health",
+    }
+
+
 @app.get("/health")
 async def health():
     return {"status": "ok", "tables": len(table_manager._tables)}
