@@ -292,3 +292,12 @@ async def websocket_endpoint(
             {"type": "player_disconnected", "username": username},
             table_id
         )
+from fastapi.middleware.cors import CORSMiddleware
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://sgipl2026-lgtm.github.io"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
