@@ -1,0 +1,28 @@
+# render.yaml — Render Blueprint
+# Commit this to your repo root; Render reads it automatically
+
+services:
+  - type: web
+    name: poker-club-api
+    runtime: python
+    region: singapore          # closest free-tier region for SG users
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+
+    envVars:
+      # Set these in the Render dashboard → Environment tab
+      - key: SUPABASE_URL
+        sync: false            # means: enter value manually in dashboard
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true    # Render auto-generates a secure random value
+      - key: ALLOWED_ORIGINS
+        sync: false            # e.g. https://yourusername.github.io
+      - key: ENVIRONMENT
+        value: production
+      - key: PYTHON_VERSION
+        value: "3.11.0"
